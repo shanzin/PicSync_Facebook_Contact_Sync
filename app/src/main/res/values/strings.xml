@@ -3,4 +3,10 @@
     <string name="facebook_app_id">1634519976764001</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="LoginActivity_text_1">First, we need to authorize with Facebook.</string>
+    <string name="LoginActivity_text_2">To do this, we need you to login to your Facebook account.</string>
+    <string name="title_activity_show__contact_">Show_Contact_Activity</string>
+    <string name="title_activity_show__facebook__match__user__photo_">
+        Show_Facebook_Match_User_Photo_Activity
+    </string>
 </resources>

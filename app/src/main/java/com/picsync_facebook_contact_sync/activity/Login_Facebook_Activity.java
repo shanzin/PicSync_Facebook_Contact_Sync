@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -23,6 +25,7 @@ import com.picsync_facebook_contact_sync.R;
 public class Login_Facebook_Activity extends Activity {
     CallbackManager callbackManager;
     private AccessToken accessToken;
+    private Button login_facebook_next_button;
 
     @Override
     protected void onResume() {
@@ -50,7 +53,33 @@ public class Login_Facebook_Activity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login__facebook);
+        create_facebook_login_button();
+        create_next_button();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_login__facebook, menu);
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void create_facebook_login_button(){
         //declare callback Manager
         callbackManager = CallbackManager.Factory.create();
 
@@ -105,29 +134,23 @@ public class Login_Facebook_Activity extends Activity {
                 // App code
                 Log.d("FB", exception.toString());
             }
-        }/*loginButton.registerCallback*/
-        );
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login__facebook, menu);
-        return true;
-    }
+    private void create_next_button(){
+        login_facebook_next_button = (Button)findViewById(R.id.login_facebook_next_button);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        login_facebook_next_button.setOnClickListener(new Button.OnClickListener(){
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+            @Override
 
-        return super.onOptionsItemSelected(item);
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(Login_Facebook_Activity.this, Show_Contact_Activity.class);
+                startActivity(intent);
+                Login_Facebook_Activity.this.finish();
+            }
+
+        });
     }
 }
